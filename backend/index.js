@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // Database Connection With MongoDB
-mongoose.connect('mongodb+srv://greatstackdev:greatstackdev@cluster0.jep6mdk.mongodb.net/e-commerce');
+mongoose.connect('mongodb+srv://greatstackdev:{your-password}@cluster0.jep6mdk.mongodb.net/e-commerce');
 
 // API Creation
 
@@ -178,7 +178,7 @@ app.post('/signup', async (req, res) => {
             id: user.id
         }
     }
-    const token = jwt.sign(data, 'secret_ecom');
+    const token = jwt.sign(data, '{your_secret_key}');
     res.json({success:true,token})
 })
 
@@ -193,7 +193,7 @@ app.post('/login', async (req, res) => {
                     id: user.id
                 }
             }
-            const token = jwt.sign(data, 'secret_ecom');
+            const token = jwt.sign(data, '{your_secret_key}');
             res.json({success:true,token})
         }
         else{
@@ -229,7 +229,7 @@ const fetchUser = async(req, res, next) => {
     }
     else{
         try{
-            const data = jwt.verify(token, 'secret_ecom');
+            const data = jwt.verify(token, '{your_secret_key}');
             req.user = data.user;
             next();
         }
